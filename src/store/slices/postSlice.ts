@@ -8,7 +8,8 @@ const initialState: PostInitialState = {
     errors: false,
     post: undefined,
     data: [],
-    searchData: []
+    searchData: [],
+    userIdFilter: 0
 };
 
 export const fetchPost = createAsyncThunk(
@@ -34,7 +35,12 @@ const postSlice = createSlice({
     initialState,
     reducers: {
         searchPosts(state, action: PayloadAction<string>): void {
-            state.searchData = state.data.filter((item) => item.title?.startsWith(action.payload))
+            let data = state.data.filter((item) => item.title?.startsWith(action.payload))
+            state.searchData = (state.userIdFilter) ? data.filter(i => i.userId == state.userIdFilter) : data
+        },
+        filterPosts(state, action: PayloadAction<number>): void {
+            state.userIdFilter = action.payload
+            state.searchData = state.data.filter((item) => item.userId == action.payload)
         },
         sortPosts(state): void {
             state.searchData.reverse();
@@ -55,7 +61,7 @@ const postSlice = createSlice({
         })
     }
 });
-export const { searchPosts, sortPosts } = postSlice.actions;
+export const { searchPosts, sortPosts, filterPosts } = postSlice.actions;
 
 export default postSlice.reducer
 

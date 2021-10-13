@@ -1,9 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { RootType } from '../store/rootReducer'
-import { searchPosts, sortPosts } from '../store/slices/postSlice'
+import { searchPosts, sortPosts, filterPosts } from '../store/slices/postSlice'
 import { Link } from 'react-router-dom'
 import { Post } from '../store/types/types'
+
+import InputSeach from '../components/search'
+import SelectField from '../components/select'
 
 
 const Main: React.FC = () => {
@@ -25,13 +28,23 @@ const Main: React.FC = () => {
 
   return (
     <div>
-      <input type={'text'} value={text} onChange={(e) => searchData(e.target.value)} />
-      <p onClick={sortData}>{(sort) ? 'По убыванию ↓' : 'По возрастанию ↑'}</p>
+      <InputSeach
+        text={text}
+        setText={searchData}
+        sort={sort}
+        setSort={sortData}
+      />
+
+      <SelectField />
+
       {post.searchData.map((item: Post, index: number) => {
         return (
-          <div key={item.id}>
+          <div key={item.id} className='card'>
             <p>
               {item.title}
+            </p>
+            <p>
+              {item.body}
             </p>
             <Link to={`/post/${item.id}`}>Перейти</Link>
           </div>

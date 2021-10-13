@@ -39,7 +39,8 @@ export interface PostInitialState {
     errors: boolean,
     post: Post | undefined,
     data: Post[],
-    searchData: Post[]
+    searchData: Post[],
+    userIdFilter: number
 }
 
 export type SearchData = {
@@ -50,4 +51,10 @@ export interface FavouriteInitialState {
     favourite: Post[],
     searchFavourite: Post[]
 }
+
+export interface UserInitialState {
+    users: User[],
+    loading: boolean
+}
+
 

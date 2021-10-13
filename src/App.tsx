@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux'
 import { fetchPosts } from './store/slices/postSlice'
 import { loadFavourite } from './store/slices/favouriteSlice'
+import { fetchUsers } from './store/slices/userSlice'
 import {
   Switch,
   Route,
@@ -18,6 +19,7 @@ const App: React.FC = () => {
   React.useEffect(() => {
     dispatch(fetchPosts())
     dispatch(loadFavourite())
+    dispatch(fetchUsers())
   }, [])
 
   return (

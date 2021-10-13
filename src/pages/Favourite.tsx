@@ -4,6 +4,9 @@ import { RootType } from '../store/rootReducer'
 import { searchFavourite, deleteFavourite, sortFavourite } from '../store/slices/favouriteSlice'
 import { Link } from 'react-router-dom'
 import { Post } from '../store/types/types'
+import '../style/style.css'
+
+import InputSeach from '../components/search'
 
 
 const Favourite: React.FC = () => {
@@ -30,12 +33,17 @@ const Favourite: React.FC = () => {
 
     return (
         <div>
-            <input type={'text'} value={text} onChange={(e) => searchData(e.target.value)} />
-            <p onClick={sortData}>{(sort) ? 'По убыванию ↓' : 'По возрастанию ↑'}</p>
+            <InputSeach
+                text={text}
+                setText={searchData}
+                sort={sort}
+                setSort={sortData}
+            />
+
             <p>count {favourite?.length}</p>
             {favourite.map((item: Post, index: number) => {
                 return (
-                    <div key={item.id}>
+                    <div key={item.id} className='card'>
                         <p>
                             {item.title}
                         </p>
